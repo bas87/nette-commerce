@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<meta name="description" content="E-shop quadrocopter.cz. Prodej quadrocopter a mikrokopter pro hobby a profesionální fotografování." />
+	<meta name="robots" content="{$robots}" n:ifset="$robots" />
+
+	<title>{block title}{/block}</title>
+
+	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/style.css" type="text/css" />
+	<link rel="shortcut icon" href="{$basePath}/favicon.ico" type="image/x-icon" />
+
+	<script type="text/javascript" src="{$basePath}/js/netteForms.js"></script>
+	<script type="text/javascript" src="{$basePath}/js/jquery.js"></script>
+	<script type="text/javascript" src="{$basePath}/js/jquery.nette.js"></script>
+	{block head}{/block}
+        <script type="text/javascript">
+
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-28935897-1']);
+          _gaq.push(['_trackPageview']);
+
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+
+        </script>
+</head>
+
+<body>
+
+    {snippet flashes}
+    <ul n:ifset="$flashes" class="flash" id="flashes">
+        <li n:foreach="$flashes as $flash" class="{$flash->type}">
+            {$flash->message}
+        </li>
+    </ul>
+    {/snippet}
+    <script type="text/javascript">$(function() { $('#flashes li').delay(5000).fadeOut(); });</script>
+
+    <div id="wrapper">
+
+            <div id="header">
+                    <div class="top">
+                            <div class="left">
+                                <div class="logo">
+                                    <div class="frame">
+                                        <h1>QUADRO<span style="color:#86BBE4;">COPTER</span>.CZ</h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="center">
+                                <div class="banner">
+                                    <h1>info@quadrocopter.cz</h1>
+                                    <h3>po - pa / 8.00 - 18.00</h3>
+                                </div>
+                            </div>
+                            <div class="right">
+                                {widget cart:panel}
+                            </div>
+                    </div>
+                    <div class="bottom">
+                            {widget topmenu}
+                            {widget topsearch}
+                    </div>
+            </div>
+            <div id="infobox">
+                <img alt="Ready To Fly, připraven k letu" src="{$basePath}/images/advertising_custom.jpg" width="1000" />
+            </div>
+
+            <div id="middle">
+
+                    <div id="container">
+                            <div id="content">
+                                    {block banner}{/block}
+                                    {include #content}
+                            </div>
+                    </div>
+
+                    <div class="sidebar" id="sideLeft">
+                            {widget category}
+                            <div class="box">
+                                <div class="head foo"></div>
+                                <div class="content">
+                                    <ul>
+                                        <li><a href="{plink Page:gallery}" n:class="$presenter->linkCurrent ? active">Galerie</a></li>
+                                        <li><a href="{plink Page:contact}" n:class="$presenter->linkCurrent ? active">Kontakt</a></li>
+                                        <li><a href="{plink Page:conditions}" n:class="$presenter->linkCurrent ? active">Obchodní podmínky</a></li>
+                                    </ul>
+                                </div>
+                                <div class="footer"></div>
+                            </div>
+                    </div>
+
+            </div>
+
+            <div id="footer">
+                    {* zatim nic *}
+            </div>
+
+    </div>
+    <div id="copyright">Copyright &COPY; 2011 - {=new \Nette\DateTime|date:'%Y'}, Všechna práva vyhrazena.</div>
+
+</body>
+</html>

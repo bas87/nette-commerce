@@ -1,0 +1,40 @@
+{if $products->count() > 0}
+<ul id="product-list" class="clear">
+    <li n:foreach="$products as $product">
+                <div class="image">
+                    <a href="{plink Catalog:product $product->path}" class="product-img-link" title="{$product->name}">
+                        {if $pi = $model->catalog->getProductPromoImage($product)}
+                        <img src="{$pi->path|thumbnail:124:124}" alt="{$pi->name}" width="124" height="124" />
+                        {else}
+                        <img src="{$basePath}/images/default-medium.jpg" alt="bez obrázku" width="124" height="124" />
+                        {/if}
+                    </a>
+                </div>
+                <div class="center-block">
+                        <h3><a class="product-link" href="{plink Catalog:product $product->path}" title="{$product->name}">{$product->name}</a></h3>
+                        <p class="product-desc">
+                            <a class="product-descr" href="{plink Catalog:product $product->path}" title="{$product->name}">
+                                {$product->short_description}
+                            </a>
+                        </p>
+                </div>																				 
+                <div class="right-block">
+                        <span class="price">{$product->price|currency}</span>
+                        <span class="price-note">s DPH</span>
+                        <span style="clear: both; display: block;"></span>
+                        <p class="sku">Obj.č. {$product->sku}</p>
+                        <span class="separator"></span>
+                        <a class="button ajax" rel="ajax_id_product_37" n:href="addToCart $product->id" title="Do košíku">Do košíku</a>
+                        <a class="button" href="{plink Catalog:product $product->path}" title="Detail produktu">Detail produktu</a>					
+                </div>
+    </li>
+</ul>
+{else}
+<p class="note">Požadované zboží nebylo nalezeno.</p>
+{/if}
+
+<p n:if="$paginator->getPageCount() > 1" class="pager">
+    <a n:if="!$paginator->isFirst()" n:href="this 'page' => $paginator->getPage()-1"> Předchozí </a>
+        <span class="counter">{$paginator->getPage()}/{$paginator->getPageCount()}</span>
+    <a n:if="!$paginator->isLast()" n:href="this 'page' => $paginator->getPage()+1"> Další </a>
+</p>

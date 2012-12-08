@@ -1,0 +1,6 @@
+{snippet panel}
+<div id="header-cart">
+    <div class="wellcome">Vítejte,</div>
+    <div class="cart"><a id="header-cart-link" href="{plink Cart:default}">Košík:</a> {if $sumary->amount}{$sumary->total|currency}, {$sumary->amount} Ks.{else}(prázdny){/if}</div>
+</div>
+{/snippet}

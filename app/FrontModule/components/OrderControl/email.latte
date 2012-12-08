@@ -1,0 +1,118 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Potvrzení objednávky</title>
+    </style>
+</head>
+<body style="font-size: 14px;">
+    
+    <p>Dobrý den,</p>
+    <p>Vaše objednávka číslo <b>{$order->number}</b> z <b>{$order->creation->format('d.m.Y')}</b> byla přijata.</p>
+    <br />
+    
+    <table cellspacing="0" style="background: #f4f4f4; width: 700px; font-size: 14px;">
+    <tr>
+        <th style="padding: 5px; text-align: center; border-bottom: 1px solid #b1b4b6; border-right: 1px solid #b1b4b6;">Obj. č.</th>
+        <th style="padding: 5px; text-align: center; border-bottom: 1px solid #b1b4b6; border-right: 1px solid #b1b4b6;">Jméno</th>
+        <th style="padding: 5px; text-align: center; border-bottom: 1px solid #b1b4b6; border-right: 1px solid #b1b4b6;">Cena / Ks. <span style="font-size: 8px; color: #575B62;">(s DPH)</span></th>
+        <th style="padding: 5px; text-align: center; border-bottom: 1px solid #b1b4b6;">Množství</th>
+    </tr>
+    {foreach $order->related('order_product') as $order_product}
+        <tr>
+            <td style="padding: 5px; text-align: center; border-bottom: 1px solid #b1b4b6; border-right: 1px solid #b1b4b6;">{$order_product->product->sku}</td>
+            <td style="padding: 5px; text-align: center; border-bottom: 1px solid #b1b4b6; border-right: 1px solid #b1b4b6;">{$order_product->product->name}</td>
+            <td style="padding: 5px; text-align: center; border-bottom: 1px solid #b1b4b6; border-right: 1px solid #b1b4b6;">{$order_product->product->price|currency}</td>
+            <td style="padding: 5px; text-align: center; border-bottom: 1px solid #b1b4b6;">{$order_product->amount}</td>
+        </tr>
+    {/foreach}
+        <tr>
+            <td colspan="4"  style="padding: 5px; text-align: right;">Celkem: <b>{$order->total|currency}</b> <span style="font-size: 10px; color: #575B62;">(s DPH)</span></td>
+        </tr>
+    </table>
+
+    <br />
+    <p>Doprava a platba:</p>
+    <table cellspacing="0" style="background: #f4f4f4; width: 700px; font-size: 14px;">
+        <tr>
+            <th style="border-bottom: 1px solid #b1b4b6;">&nbsp;</th>
+            <th style="border-bottom: 1px solid #b1b4b6; border-right: 1px solid #b1b4b6;">&nbsp;</th>
+            <th style="border-bottom: 1px solid #b1b4b6;">Cena <span style="font-size: 8px; color: #575B62;">(s DPH)</span></th>
+        </tr>
+        <tr>
+            <td style="padding: 5px; text-align: center; border-bottom: 1px solid #b1b4b6; border-right: 1px solid #b1b4b6;">Způsob doručení:</td>
+            <td style="padding: 5px; text-align: center; border-bottom: 1px solid #b1b4b6; border-right: 1px solid #b1b4b6;">{$order->delivery->method}</td>
+            <td style="padding: 5px; text-align: center; border-bottom: 1px solid #b1b4b6;">{$order->delivery->price|currency}</td>
+        </tr>
+        <tr>
+            <td style="padding: 5px; text-align: center; border-right: 1px solid #b1b4b6;">Způsob platby:</td>
+            <td style="padding: 5px; text-align: center; border-right: 1px solid #b1b4b6;">{$order->payment->method}</td>
+            <td style="padding: 5px; text-align: center;">{$order->payment->price|currency}</td>
+        </tr>
+    </table>
+
+    <br />
+    <p>Celková cena za objednávku:<span style="font-size: 8px; color: #575B62;">(s DPH)</span></p>
+    <table cellspacing="0" style="background: #f4f4f4; width: 700px; font-size: 14px;">
+        <tr>
+            <td style="padding: 5px; text-align: right; border-bottom: 1px solid #b1b4b6;"><b>{$order->total+$order->delivery->price+$order->payment->price|currency}</b></td>
+        </tr>
+    </table>
+        
+    <br />
+    <p>Doručovací údaje:</p>
+    <table cellspacing="0" style="background: #f4f4f4; width: 700px; font-size: 14px;">
+        <tr>
+            <td style="padding: 5px; text-align: right; border-bottom: 1px solid #b1b4b6; border-right: 1px solid #b1b4b6;">Jméno:</td>
+            <td style="padding: 5px; text-align: left; border-bottom: 1px solid #b1b4b6;">{$customer->first_name}</td>
+        </tr>
+        <tr>
+            <td style="padding: 5px; text-align: right; border-bottom: 1px solid #b1b4b6; border-right: 1px solid #b1b4b6;">Přijmeni:</td>
+            <td style="padding: 5px; text-align: left; border-bottom: 1px solid #b1b4b6;">{$customer->last_name}</td>
+        </tr>
+        <tr>
+            <td style="padding: 5px; text-align: right; border-bottom: 1px solid #b1b4b6; border-right: 1px solid #b1b4b6;">Společnost:</td>
+            <td style="padding: 5px; text-align: left; border-bottom: 1px solid #b1b4b6;">{$customer->company}</td>
+        </tr>
+        <tr>
+            <td style="padding: 5px; text-align: right; border-bottom: 1px solid #b1b4b6; border-right: 1px solid #b1b4b6;">IČ:</td>
+            <td style="padding: 5px; text-align: left; border-bottom: 1px solid #b1b4b6;">{$customer->ic}</td>
+        </tr>
+        <tr>
+            <td style="padding: 5px; text-align: right; border-bottom: 1px solid #b1b4b6; border-right: 1px solid #b1b4b6;">DIČ:</td>
+            <td style="padding: 5px; text-align: left; border-bottom: 1px solid #b1b4b6;">{$customer->dic}</td>
+        </tr>
+        <tr>
+            <td style="padding: 5px; text-align: right; border-bottom: 1px solid #b1b4b6; border-right: 1px solid #b1b4b6;">E-mail:</td>
+            <td style="padding: 5px; text-align: left; border-bottom: 1px solid #b1b4b6;">{$customer->email}</td>
+        </tr>
+        <tr>
+            <td style="padding: 5px; text-align: right; border-bottom: 1px solid #b1b4b6; border-right: 1px solid #b1b4b6;">Telefon:</td>
+            <td style="padding: 5px; text-align: left; border-bottom: 1px solid #b1b4b6;">{$customer->phone}</td>
+        </tr>
+        <tr>
+            <td style="padding: 5px; text-align: right; border-bottom: 1px solid #b1b4b6; border-right: 1px solid #b1b4b6;">Ulice:</td>
+            <td style="padding: 5px; text-align: left; border-bottom: 1px solid #b1b4b6;">{$customer->street}</td>
+        </tr>
+        <tr>
+            <td style="padding: 5px; text-align: right; border-bottom: 1px solid #b1b4b6; border-right: 1px solid #b1b4b6;">Město:</td>
+            <td style="padding: 5px; text-align: left; border-bottom: 1px solid #b1b4b6;">{$customer->city}</td>
+        </tr>
+        <tr>
+            <td style="padding: 5px; text-align: right; border-bottom: 1px solid #b1b4b6; border-right: 1px solid #b1b4b6;">PSČ:</td>
+            <td style="padding: 5px; text-align: left; border-bottom: 1px solid #b1b4b6;">{$customer->zip}</td>
+        </tr>
+        <tr>
+            <td style="padding: 5px; text-align: right; border-bottom: 1px solid #b1b4b6; border-right: 1px solid #b1b4b6;">Stát:</td>
+            <td style="padding: 5px; text-align: left; border-bottom: 1px solid #b1b4b6;">{$customer->state}</td>
+        </tr>
+        <tr>
+            <td style="padding: 5px; text-align: right; border-bottom: 1px solid #b1b4b6; border-right: 1px solid #b1b4b6;">Poznámka:</td>
+            <td style="padding: 5px; text-align: left; border-bottom: 1px solid #b1b4b6;">{$order->comment}</td>
+        </tr>
+    </table>
+
+    <br />
+    <p>O vyřízení objednávky Vás budeme informavat.</p>
+    <p>S pozdravem <a style="color: #000;" href="{$shopUrl}">{$shopName}</a>.</p>
+</body>
+</html>

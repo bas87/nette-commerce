@@ -1,0 +1,15 @@
+{if $products->count() > 0}
+<ul>
+    <li n:foreach="$products as $product">
+        <a href="{plink Product:edit $product->id}" title="{$product->name}">{$product->name}</a>																			 
+    </li>
+</ul>
+{else}
+<p class="note">Požadované zboží nebylo nalezeno.</p>
+{/if}
+
+<p n:if="$paginator->getPageCount() > 1" class="pager">
+    <a n:if="!$paginator->isFirst()" n:href="this 'page' => $paginator->getPage()-1"> Předchozí </a>
+        <span class="counter">{$paginator->getPage()}/{$paginator->getPageCount()}</span>
+    <a n:if="!$paginator->isLast()" n:href="this 'page' => $paginator->getPage()+1"> Další </a>
+</p>

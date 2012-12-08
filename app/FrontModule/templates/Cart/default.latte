@@ -1,0 +1,16 @@
+{block title}Košík{/block}
+
+{block content}
+
+<div class="box">
+    <div class="head"><span>Košík</span></div>
+    <div class="content">
+       {widget cart:list}
+        <div class="checkout-button-box">
+            <a class="button" href="{plink Checkout:default}">Vytvořit objednávku</a>
+        </div>
+    </div>
+    <div class="footer"></div>
+</div>
+
+{/block}

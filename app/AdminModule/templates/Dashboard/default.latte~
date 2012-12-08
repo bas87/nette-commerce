@@ -1,0 +1,11 @@
+{* This is temporary page, you can delete it *}
+{block title}ready to flay...již brzy{/block}
+
+{block content}
+<div id="home-banner">
+    <img alt="banner" src="{$basePath}/images/home_banner.jpg" />
+    <br />
+    <h1>ready to flay...již brzy</h1>
+</div>
+<br />
+{/block}

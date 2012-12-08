@@ -1,0 +1,19 @@
+<div class="comments">
+    <div class="head"><h2>Diskuse</h2></div>
+    <div class="form">
+        {snippet form}
+            {widget form}
+        {/snippet}
+    </div>
+    <ul n:foreach="$comments as $comment" class="list">
+        <li>
+            <p class="title"><span title="{$comment->ip}" class="name">{$comment->name}</span>, {$comment->creation}</p>
+            <p n:if="$pc = $model->comment->getById($comment->parent_id)" class="response">
+                &rarr; Reakce na: {$pc->name}<br />
+                {$pc->message|truncate:100}
+            </p>
+            <p class="message">{$comment->message}</p>
+            <p class="reply"><a href="{link reply $comment->id}#{$control->getComponent('form')->getElementPrototype()->id}">reagovat</a></p>
+        <li>
+    </ul>
+</div>

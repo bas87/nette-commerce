@@ -1,0 +1,16 @@
+<div n:foreach="$category->getChild(1) as $_category" class="box">
+    <div class="head {if $_category->parent_id == 1 && $_category->position == 1}blue{else}dark{/if}"><a n:href="selectCategory $category->getById($_category->id)->path">{$_category->name}</a></div>
+    <div class="content">
+        <ul>
+            <li n:foreach="$category->getChild($_category->id) as $_subCategory">
+                <a n:href="selectCategory $category->getById($_subCategory->id)->path" n:class="isset($current->id) && $current->id == $_subCategory->id ? active">{$_subCategory->name}</a>
+                <ul n:if="$category->getChild($_subCategory->id)->count()">
+                    <li n:foreach="$category->getChild($_subCategory->id) as $_subSubCategory">
+                        <a n:href="selectCategory $category->getById($_subSubCategory->id)->path" n:class="$current->id == $_subSubCategory->id ? active">{$_subSubCategory->name}</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="footer"></div>
+</div>

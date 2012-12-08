@@ -1,0 +1,25 @@
+{snippet list}
+<div class="cart">
+    <table cellspacing="0" class="data-table">
+    <tr>
+        <th class="first">Obj. č.</th>
+        <th>Jméno</th>
+        <th>Cena / Ks. <span style="font-size: 8px; color: #575B62;">(s DPH)</span></th>
+        <th>Množství</th>
+        <th class="last"></th>
+    </tr>
+    {foreach $cart as $item}
+        <tr>
+            <td style="width: 100px;" class="first"><a href="{plink Catalog:product $item->product->path}">{$item->product->sku}</a></td>
+            <td style="width: 250px;"><a href="{plink Catalog:product $item->product->path}">{$item->product->name}</a></td>
+            <td style="width: 140px;">{$item->product->price|currency}</td>
+            <td style="width: 80px;">{$item->amount}</td>
+            <td style="width: 80px;" class="last"><a n:href="remove $item->id" class="ajax remove">Odstranit</a></td>
+        </tr>
+    {/foreach}
+        <tr>
+            <td class="summary" colspan="5">Celkem: {$sumary->total|currency} <span style="font-size: 10px; color: #575B62;">(s DPH)</span></td>
+        </tr>
+    </table>
+</div>
+{/snippet}

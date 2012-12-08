@@ -1,0 +1,47 @@
+<div class="product">
+    <div class="head">
+        <h2>{$product->name}</h2>
+    </div>
+    <div class="image">
+        {if ($imgCount = $product->related('product_image')->count()) > 0}
+        <span n:if="$imgCount > 1" class="counter">1/{$imgCount}</span>
+        {foreach $product->related('product_image') as $product_image}
+        <a href="{$basePath}{$product_image->image->path}" rel="prettyPhoto[pp_gal]" title="{$product_image->image->name}" {if !$iterator->first}style="display:none;"{/if}>
+            <img src="{$basePath}{$product_image->image->path|thumbnail:250:250}" width="250" height="250" alt="{$product_image->image->name}" />
+        </a>
+        {/foreach}
+        {else}
+        <img src="{$basePath}/images/default-big.jpg" width="250" height="250" alt="" />
+        {/if}
+    </div>
+    <div class="side">
+        <div class="price">
+            <span>Cena: {$product->price|currency}</span>
+            <span class="price-note">s DPH</span>
+        </div>
+        <div class="sku">Obj.č. {$product->sku}</div>
+        <div class="availability"><b>Dostupnost:</b> <span class="tag">{$product->availability->value}</span></div>
+        <div class="cart">
+            <div class="form">
+                {widget form}
+            </div>
+        </div>
+    </div>
+    <div style="clear:both;"></div>
+
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style ">
+    <a class="addthis_button_preferred_1"></a>
+    <a class="addthis_button_preferred_2"></a>
+    <a class="addthis_button_preferred_3"></a>
+    <a class="addthis_button_preferred_4"></a>
+    <a class="addthis_button_compact"></a>
+    <a class="addthis_counter addthis_bubble_style"></a>
+    </div>
+    <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4f34336c35649cea"></script>
+    <!-- AddThis Button END -->
+    
+    <div class="description">
+        {!$product->description|texy}
+    </div>
+</div>

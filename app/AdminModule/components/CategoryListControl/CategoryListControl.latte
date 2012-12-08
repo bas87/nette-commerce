@@ -1,0 +1,9 @@
+{if $categories->count() > 0}
+<ul>
+    <li n:foreach="$categories as $category">
+        <a href="{plink Category:edit $category->id}" title="{$category->name}">{$category->name}</a>																			 
+    </li>
+</ul>
+{else}
+<p class="note">Požadovaná kategorie nebyla nalezena.</p>
+{/if}

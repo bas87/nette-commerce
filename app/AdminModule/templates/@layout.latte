@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<meta name="robots" content="{$robots}" n:ifset="$robots" />
+
+	<title>{block title}{/block}</title>
+
+	<link rel="shortcut icon" href="{$basePath}/favicon.ico" type="image/x-icon" />
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+	<script type="text/javascript" src="{$basePath}/js/netteForms.js"></script>
+	<script type="text/javascript" src="{$basePath}/js/jquery.nette.js"></script>
+	{block head}{/block}
+</head>
+
+<body>
+
+    {snippet flashes}
+    <ul n:ifset="$flashes" class="flash" id="flashes">
+        <li n:foreach="$flashes as $flash" class="{$flash->type}">
+            {$flash->message}
+        </li>
+    </ul>
+    {/snippet}
+    <script type="text/javascript">$(function() { $('#flashes li').delay(5000).fadeOut(); });</script>
+
+    {include #content}
+
+</body>
+</html>
